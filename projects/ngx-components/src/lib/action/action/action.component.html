@@ -1,0 +1,11 @@
+<ng-container *ngFor="let item of items">
+    <span *ngIf="item.visible" (click)="item.items ? menu.toggle($event) : item.command()">
+        <ng-container *ngTemplateOutlet="template ?? icon; context: { $implicit: item }" />
+        <p-menu #menu [model]="item.items" [popup]="true" appendTo="body" />
+    </span>
+</ng-container>
+
+<ng-template #icon let-action>
+    <p-button [matTooltip]="action.label | translate" [icon]="action.icon"
+        styleClass="p-button-rounded p-button-text p-button-secondary" />
+</ng-template>
