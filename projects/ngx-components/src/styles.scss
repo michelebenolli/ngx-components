@@ -1,0 +1,17 @@
+$gutter: 1rem; //for primeflex grid system
+
+/* Bootstrap */
+// TODO: Enabling it before or after primeng import breaks actions!
+// @import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+/* PrimeNG */
+//@import "./lib/assets/theme/theme-light/blue/theme.css";
+@import "./assets/themes/theme-light/blue/theme.scss";
+@import "/node_modules/primeng/resources/primeng.min.css";
+
+/* Angular Material */
+@import "./assets/scss/theme.scss";
+
+/* Customization */
+//@import "./custom.scss"

@@ -12,6 +12,10 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
+      "ngx-components/*": ["projects/ngx-components/*"],
+      "components": [
+        "./dist/components"
+      ],
       "ngx-components": [
         "dist/ngx-components"
       ]

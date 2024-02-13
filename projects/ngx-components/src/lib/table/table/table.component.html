@@ -1,0 +1,63 @@
+<!-- // TODO: Show paginator only when paging is active... -->
+<!-- // TODO: Check the condition of [totalRecords]-->
+<p-table [value]="items ?? []" [lazy]="true"
+    [paginator]="true" [alwaysShowPaginator]="false" [totalRecords]="totalItems ?? items?.length ?? 0" [rows]="pageSize"
+    [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} di {totalRecords}"
+    [rowsPerPageOptions]="[5, 10, 25, 100]" (onSort)="sort($event)" (onPage)="pageChange($event)">
+
+    <!-- Table filters and actions -->
+    <ng-template pTemplate="caption" *ngIf="filters?.length || globalActions?.length">
+        
+        <div class="d-flex align-items-center overflow-auto p-3">
+            <app-filter [filters]="filters" (onFilter)="filter($event)" class="flex-grow-1" />
+            <app-action *ngIf="globalActions?.length" [actions]="globalActions" class="ms-2">
+                <ng-template #template let-action>
+                    <p-button [label]="action.label" styleClass="p-button-primary ms-2" />
+                </ng-template>
+            </app-action>
+        </div>
+    </ng-template>
+
+    <!-- Table header -->
+    <ng-template pTemplate="header">
+        <tr>
+            <th *ngFor="let column of columns" [pSortableColumn]="column.sort">
+                {{column.name}} <p-sortIcon *ngIf="column.sort" [field]="column.sort" />
+            </th>
+            <th *ngIf="actions" class="text-end"></th>
+        </tr>
+    </ng-template>
+
+    <!-- Table body -->
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td *ngFor="let column of columns">
+                <ng-container [ngTemplateOutlet]="column.template ? getTemplate(column.template) : template"
+                    [ngTemplateOutletContext]="{ $implicit: item, column }" />
+            </td>
+            <td class="text-end" *ngIf="actions">
+                <app-action [actions]="actions" [data]="item" />
+            </td>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="100">
+                {{ 'Nessun elemento da visualizzare' }}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- Table data template -->
+<ng-template #template let-item let-column="column">
+    <ng-container [ngSwitch]="column.type">
+        <span *ngSwitchCase="DataType.Date">{{ column.value(item) | date: 'dd/MM/yyyy' }}</span>
+        <span *ngSwitchCase="DataType.DateTime">{{ column.value(item) | date: 'dd/MM/yyyy, hh:mm' }}</span>
+        <span *ngSwitchCase="DataType.Amount">{{ column.value(item) | currency: 'EUR': 'symbol' : undefined: 'it-IT' }}</span>
+        <span *ngSwitchCase="DataType.Bool">{{ column.value(item) ? 'Si': 'No' }}</span><!-- // TODO: Translate -->
+        <span *ngSwitchCase="DataType.Color"><i class="bi bi-circle-fill" [style.color]="column.value(item)"></i></span>
+        <span *ngSwitchDefault>{{ column.value(item) }}</span>
+    </ng-container>
+</ng-template>

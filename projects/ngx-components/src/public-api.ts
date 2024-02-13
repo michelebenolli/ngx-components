@@ -1,7 +1,7 @@
-/*
- * Public API Surface of ngx-components
- */
-
-export * from './lib/ngx-components.service';
-export * from './lib/ngx-components.component';
-export * from './lib/ngx-components.module';
+export * from './lib/action';
+export * from './lib/overlay';
+export * from './lib/editor';
+export * from './lib/picker';
+export * from './lib/filter';
+export * from './lib/sort-panel';
+export * from './lib/table';

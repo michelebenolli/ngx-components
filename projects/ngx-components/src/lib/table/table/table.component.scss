@@ -1,0 +1,25 @@
+:host::ng-deep {
+
+    .p-datatable {
+        .p-datatable-tbody > tr > td {
+            padding: 0.5rem 1rem;
+            min-height: 37px;
+        }
+
+        .p-datatable-header {
+            background-color: white;
+            padding: 0;
+            //border-color: green;
+        }
+
+        .p-datatable-table {
+            // TODO: Clean rules, remove this...
+            //border: 1px solid red; // #f0f2f4;
+        }
+        border: 2px solid transparent;
+        border-radius: 5px;
+    } 
+
+
+} 
+// TODO: Make min-height work, without action does not work...

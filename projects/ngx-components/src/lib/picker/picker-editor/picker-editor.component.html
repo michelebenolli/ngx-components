@@ -1,0 +1,26 @@
+<!-- Filters -->
+<!-- // TODO: Add filters... -->
+<!--<app-filters *ngIf="config.filters" [filters]="config.filters" (onFilter)="filter($event)" />-->
+
+<!-- Selection list -->
+<mat-selection-list #picker class="mt-2" *ngIf="items?.length; else noItems" 
+    [multiple]="config.multiple" [hideSingleSelectionIndicator]="true">
+
+    <!-- // TODO: Check if the congig.id(item) condition below is correct -->
+    <mat-list-option *ngFor="let item of items" class="list-item" [value]="item.id"
+        [selected]="selection.isSelected(item)" (click)="toggle(item)">
+        <span matListItemTitle>{{ config.name(item) }}</span>
+        <span matListItemLine *ngIf="config.description">{{ config.description(item) }}</span>
+    </mat-list-option>
+</mat-selection-list>
+
+<ng-template #noItems>
+    <div class="border rounded p-3 mt-3">
+        {{ 'Nessun elemento da visualizzare' }} <!-- // TODO: Translate in whole library -->
+    </div>
+</ng-template>
+
+<!-- Pagination -->
+<!-- // TODO: Chnage pagination -->
+<mat-paginator *ngIf="items && totalItems && pageSize && totalItems > pageSize" [length]="totalItems"
+    [pageSize]="pageSize" [hidePageSize]="true" (page)="onPageChange($event)" showFirstLastButtons />
