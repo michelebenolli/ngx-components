@@ -3,10 +3,10 @@
 //@import "primeng/resources/primeng.css";
 
 /* Bootstrap */
-//@import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 //@import "~bootstrap-icons/font/bootstrap-icons.css";
 
 @import "projects/ngx-components/src/styles.scss"; // TODO: Import assets in another way...
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+//@import 'bootstrap/scss/bootstrap';

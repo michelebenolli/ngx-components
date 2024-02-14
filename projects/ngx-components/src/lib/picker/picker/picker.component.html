@@ -6,10 +6,8 @@
           <p class="mb-0">{{ config.name(item) }}</p>
           <small *ngIf="config.description" class="text-muted">{{ config.description(item) }}</small>
         </div>
-        <p-button styleClass="p-button-rounded p-button-text p-button-secondary px-2 py-1" 
-          *ngIf="!disabled" (click)="remove(i); $event.stopPropagation()">
-          <i class="bi bi-x-lg"></i>
-        </p-button>
+        <p-button *ngIf="!disabled" (click)="remove(i); $event.stopPropagation()"
+          [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="px-2 py-1" />
       </div>
     </li>
   </ul>

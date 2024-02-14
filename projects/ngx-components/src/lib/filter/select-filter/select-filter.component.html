@@ -8,9 +8,9 @@
         </mat-option>
     </mat-autocomplete>
 
-    <p-button matSuffix *ngIf="filter.request.value" (click)="clear();$event.stopPropagation()" icon="bi bi-x-lg"
-        styleClass="p-button-rounded p-button-text p-button-secondary me-1" />
+    <p-button matSuffix *ngIf="filter.request.value" (click)="clear();$event.stopPropagation()"
+        [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="me-1" />
 
-    <p-button matSuffix *ngIf="!filter.request.value" (click)="getOptions()" icon="bi bi-chevron-down"
-        styleClass="p-button-rounded p-button-text p-button-secondary me-1" />
+    <p-button matSuffix *ngIf="!filter.request.value" (click)="getOptions()"
+        [text]="true" [rounded]="true" icon="bi bi-chevron-down" severity="secondary" styleClass="me-1" />
 </mat-form-field>

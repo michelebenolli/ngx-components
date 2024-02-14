@@ -6,6 +6,6 @@
 </ng-container>
 
 <ng-template #icon let-item>
-    <p-button [matTooltip]="item.label" [icon]="item.icon" 
-        [text]="true" [rounded]="true" severity="secondary" />
+    <p-button [pTooltip]="item.label" [showDelay]="500" tooltipPosition="top"
+        [icon]="item.icon" [text]="true" [rounded]="true" severity="secondary" />
 </ng-template>

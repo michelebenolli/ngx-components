@@ -13,8 +13,8 @@ import { ActionShowcaseComponent } from './action-showcase/action-showcase.compo
 import { PickerShowcaseComponent } from './picker-showcase/picker-showcase.component';
 import { EditorShowcaseComponent } from './editor-showcase/editor-showcase.component';
 import { FilterShowcaseComponent } from './filter-showcase/filter-showcase.component'; // TODO: avoid...
-import { ValdemortModule } from 'ngx-valdemort';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    ValdemortModule
+    PanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

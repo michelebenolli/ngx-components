@@ -1,56 +1,22 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col">
-      <div class="card mb-3">
-        <div class="card-header">Form valdemort</div>
-        <div class="card-body">
-          <form [formGroup]="form" (ngSubmit)="submit()">
-            <input formControlName="email" type="email" />
-            <val-errors controlName="email">
-              <ng-template valError="required">The email is required</ng-template>
-              <ng-template valError="email">The email must be a valid email address</ng-template>
-            </val-errors>
-          
-            <input formControlName="age" type="number" />
-            <val-errors controlName="age">
-              <ng-template valError="required">The age is required</ng-template>
-              <ng-template valError="min" let-error="error">You must be at least {{ error.min }} years old</ng-template>
-            </val-errors>
-          
-            <button>Submit</button>
-          </form>
-        </div>
-      </div>    
-      <div class="card mb-3">
-        <div class="card-header">Table</div>
-        <div class="card-body">
-          <app-table-showcase />
-        </div>
-      </div>    
-      <div class="card mb-3">
-        <div class="card-header">Actions</div>
-        <div class="card-body">
-          <app-action-showcase />
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-header">Actions</div>
-        <div class="card-body">
-          <app-filter-showcase />
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-header">Editor</div>
-        <div class="card-body">
-          <app-editor-showcase />
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="card-header">Picker</div>
-        <div class="card-body">
-          <app-picker-showcase />
-        </div>
-      </div>
+      <p-panel header="Table" styleClass="mb-3">
+        <app-table-showcase />
+      </p-panel>
+      <p-panel header="Actions" styleClass="mb-3">
+        <app-action-showcase />
+      </p-panel>
+      <p-panel header="Filters" styleClass="mb-3">
+        <app-filter-showcase />
+      </p-panel>
+      <p-panel header="Editor" styleClass="mb-3">
+        <app-editor-showcase />
+      </p-panel>
+      <p-panel header="Picker" styleClass="mb-3">
+        <app-picker-showcase />
+      </p-panel>
+      
       <div class="card mb-3">
         <div class="card-header">Overlay</div>
         <div class="card-body">
