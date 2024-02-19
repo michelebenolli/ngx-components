@@ -1,73 +1,19 @@
 @use '@angular/material' as mat;
-@import '@angular/material/theming'; // TODO: Needed?
 @include mat.core();
+@import "_palette";
 
-/*$mat-primary: (
-  main: var(--primary-500),
-  lighter: var(--primary-200),
-  darker: var(--primary-800)
-);
-$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
+$app-primary: mat.define-palette($primary-palette);
+$app-accent: mat.define-palette($primary-palette);
+$app-warn: mat.define-palette(mat.$red-palette);
 
-$mat-accent: (
-  main: var(--surface-500),
-  lighter: var(--surface-200),
-  darker: var(--surface-800)
-);
-$theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
-
-$mat-warn: (
-  main: var(--red-500),
-  lighter: var(--red-200),
-  darker: var(--red-800)
-);
-$theme-warn: mat.define-palette($mat-warn, main, lighter, darker);*/
-
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-/*$custom-typography: mat-typography-config(
-  $font-family: 'Nunito',
-  $display-4:     mat-typography-level(112px, 112px, 300),
-  $display-3:     mat-typography-level(56px, 56px, 400),
-  $display-2:     mat-typography-level(45px, 48px, 400),
-  $display-1:     mat-typography-level(34px, 40px, 400),
-  $headline:      mat-typography-level(24px, 32px, 400),
-  $title:         mat-typography-level(20px, 32px, 500),
-  $subheading-2:  mat-typography-level(16px, 28px, 400),
-  $subheading-1:  mat-typography-level(14px, 24px, 400),
-  $body-2:        mat-typography-level(14px, 24px, 500),
-  $body-1:        mat-typography-level(14px, 20px, 400),
-  $caption:       mat-typography-level(12px, 20px, 400),
-  $button:        mat-typography-level(14px, 14px, 500),
-  $input:         mat-typography-level(inherit, 1.125, 400)
-);*/
-
-$custom-typography: mat.define-typography-config(
-  $font-family: 'Nunito'
-);
-
-/*$custom-theme: mat-light-theme((
+$app-theme: mat.define-light-theme((
   color: (
-    primary: $theme-primary,
-    accent: $theme-accent,
-    warn: $theme-warn,
-  ),
-  density: 0
-));*/
-
-$custom-theme: mat.define-light-theme((
-  color: (
-    primary: $my-primary,
-    accent: $my-accent,
-    //warn: $theme-warn,
-  ),
-  typography: $custom-typography,
-  density: 0
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  )
 ));
 
-@include mat.core-theme($custom-theme);
-//@include angular-material-typography($custom-typography);
-//@include angular-material-theme($custom-theme);
+@include mat.all-component-themes($app-theme);
 @include mat.form-field-density(-4);
 @include mat.toolbar-density(-2);
