@@ -15,6 +15,7 @@ import { EditorShowcaseComponent } from './editor-showcase/editor-showcase.compo
 import { FilterShowcaseComponent } from './filter-showcase/filter-showcase.component'; // TODO: avoid...
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PanelModule } from 'primeng/panel';
+import { MaterialModule } from '../modules/material.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PanelModule } from 'primeng/panel';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    PanelModule
+    PanelModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

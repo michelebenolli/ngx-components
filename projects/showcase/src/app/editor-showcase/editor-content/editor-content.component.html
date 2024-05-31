@@ -1,2 +1,36 @@
-<h1>Title of editor content!</h1>
-<p>editor-content works!</p>
+<form *ngIf="form" [formGroup]="form">
+    <mat-form-field>
+      <mat-label>{{ 'Name' }}</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ 'Role' }}</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'Birthdate' }}</mat-label>
+        <input matInput formControlName="birthdate" [matDatepicker]="picker">
+        <p-button matSuffix (click)="picker.open()" icon="bi bi-calendar"
+          [rounded]="true" [text]="true" styleClass="me-1" />
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1">Option 1</mat-radio-button>
+        <mat-radio-button value="2">Option 2</mat-radio-button>
+      </mat-radio-group>
+
+      <mat-checkbox class="example-margin">Check me!</mat-checkbox>
+
+    <!--<mat-form-field> 
+        <mat-label>{{'Codice' }}</mat-label>
+        <input matInput formControlName="code">
+        <mat-error *ngIf="form.get('code')?.errors?.['required']">{{ 'error.required' }}</mat-error>
+    </mat-form-field>-->
+</form>

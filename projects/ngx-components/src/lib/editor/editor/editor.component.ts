@@ -38,7 +38,7 @@ export class EditorComponent implements AfterContentChecked {
 
   // TODO: Why needed?
   ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges();
+    //this.changeDetector.detectChanges();
   }
 
   /*setTabs(tabs: EditorTab[]) {

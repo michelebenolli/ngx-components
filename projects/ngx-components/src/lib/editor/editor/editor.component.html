@@ -2,25 +2,29 @@
   <div class="d-flex justify-content-between align-items-center w-100">
     <div class="flex-grow-1 text-truncate">
       <h5 class="title">{{ config.title }}</h5>
-      <p *ngIf="config.subtitle" class="subtitle">{{ config.subtitle }}</p>
+      @if (config.subtitle) {
+        <p class="subtitle">{{ config.subtitle }}</p>
+      }
     </div>
     <!-- // TODO: Enable tabs -->
     <!--<p-tabMenu [model]="tabs" [activeItem]="activeTab" (activeItemChange)="activeTab = $event">
-      <ng-template pTemplate="item" let-item>
-        <div class="tab-item">
-          <i class="tab-icon {{item.icon}}"></i>
-          <span class="tab-text">{{ item.label }}</span>
-        </div>
-      </ng-template>
-    </p-tabMenu>-->
-  </div>
+    <ng-template pTemplate="item" let-item>
+      <div class="tab-item">
+        <i class="tab-icon {{item.icon}}"></i>
+        <span class="tab-text">{{ item.label }}</span>
+      </div>
+    </ng-template>
+  </p-tabMenu>-->
+</div>
 </div>
 
 <div class="offcanvas-body bg-light">
   <div class="offcanvas-content">
-    <ng-container *ngIf="loading">
-      <p-skeleton *ngFor="let a of [].constructor(5)" styleClass="mb-4" height="3rem" />
-    </ng-container>
+    @if (loading) {
+      @for (a of [].constructor(5); track a) {
+        <p-skeleton styleClass="mb-4" height="3rem" />
+      }
+    }
     <ng-template appEditor [component]="component" [editor]="this" />
   </div>
 </div>

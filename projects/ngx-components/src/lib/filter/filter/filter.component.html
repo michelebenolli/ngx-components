@@ -1,15 +1,16 @@
-<div *ngIf="hasFilters || hasOverlayFilters" class="d-flex align-items-center w-100">
-
-  <div class="filters" *ngIf="hasFilters">
-    <ng-container *ngFor="let filter of filters">
-      <ng-container *ngIf="!filter.overlay">
-        <ng-container *ngTemplateOutlet="filterTemplate; context:{filter}" />
-      </ng-container>
-    </ng-container>
-  </div>
-
-  <!-- // TODO: Enable overlay -->
-  <!--<ng-container *ngIf="hasOverlayFilters">
+@if (hasFilters || hasOverlayFilters) {
+  <div class="d-flex align-items-center w-100">
+    @if (hasFilters) {
+      <div class="filters">
+        @for (filter of filters; track filter) {
+          @if (!filter.overlay) {
+            <ng-container *ngTemplateOutlet="filterTemplate; context:{filter}" />
+          }
+        }
+      </div>
+    }
+    <!-- // TODO: Enable overlay -->
+    <!--<ng-container *ngIf="hasOverlayFilters">
     <app-overlay [style]="{ 'min-width': '350px' }">
       <p class="font-semibold">{{ 'Filtri' | translate }}</p>
       <div class="panel-filters">
@@ -24,16 +25,26 @@
         <p-button [label]="'Applica'" styleClass="p-button-primary" (click)="apply()" />
       </div>
     </app-overlay>
-
-    <p-button icon="bi bi-funnel" styleClass="p-button-primary {{ hasFilters ? 'ms-3' : '' }}" 
+    <p-button icon="bi bi-funnel" styleClass="p-button-primary {{ hasFilters ? 'ms-3' : '' }}"
       cdkOverlayOrigin #origin="cdkOverlayOrigin" (click)="overlay.toggle(origin)" />
-  </ng-container>-->
-</div>
+    </ng-container>-->
+  </div>
+}
 
 <ng-template #filterTemplate let-filter="filter">
-  <div [ngSwitch]="filter.type" class="filter" *ngIf="filter.type !== 'hidden'">
-    <app-text-filter *ngSwitchCase="'text'" [filter]="filter" (changed)="apply(filter)" />
-    <app-select-filter *ngSwitchCase="'select'" [filter]="filter" (changed)="apply(filter)" />
-    <app-date-filter *ngSwitchCase="'date'" [filter]="filter" (changed)="apply(filter)" />
-  </div>
+  @if (filter.type !== 'hidden') {
+    <div class="filter">
+      @switch (filter.type) {
+        @case ('text') {
+          <app-text-filter [filter]="filter" (changed)="apply(filter)" />
+        }
+        @case ('select') {
+          <app-select-filter [filter]="filter" (changed)="apply(filter)" />
+        }
+        @case ('date') {
+          <app-date-filter [filter]="filter" (changed)="apply(filter)" />
+        }
+      }
+    </div>
+  }
 </ng-template>

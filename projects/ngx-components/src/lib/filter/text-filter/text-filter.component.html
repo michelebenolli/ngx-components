@@ -1,6 +1,10 @@
 <mat-form-field class="w-100" subscriptSizing="dynamic">
-    <mat-label *ngIf="filter.label">{{ filter.label }}</mat-label>
-    <input matInput type="text" [(ngModel)]="value" (ngModelChange)="onInput()">
-    <p-button matSuffix *ngIf="filter.request?.value" (click)="clear()"
-        [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="me-1" />
+  @if (filter.label) {
+    <mat-label>{{ filter.label }}</mat-label>
+  }
+  <input matInput type="text" [(ngModel)]="value" (ngModelChange)="onInput()">
+  @if (filter.request?.value) {
+    <p-button matSuffix (click)="clear()"
+      [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="me-1" />
+  }
 </mat-form-field>

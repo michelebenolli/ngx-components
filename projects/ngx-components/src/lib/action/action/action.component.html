@@ -1,11 +1,13 @@
-<ng-container *ngFor="let item of items">
-    <span *ngIf="item.visible" (click)="item.items?.length ? menu.toggle($event) : item.state?.['action']?.(data)">
-        <ng-container *ngTemplateOutlet="template ?? icon; context: { $implicit: item }" />
-        <p-menu #menu [model]="item.items" [popup]="true" appendTo="body" />
+@for (item of items; track item) {
+  @if (item.visible) {
+    <span (click)="item.items?.length ? menu.toggle($event) : item.state?.['action']?.(data)">
+      <ng-container *ngTemplateOutlet="template ?? icon; context: { $implicit: item }" />
+      <p-menu #menu [model]="item.items" [popup]="true" appendTo="body" />
     </span>
-</ng-container>
+  }
+}
 
 <ng-template #icon let-item>
-    <p-button [pTooltip]="item.label" [showDelay]="500" tooltipPosition="top"
-        [icon]="item.icon" [text]="true" [rounded]="true" severity="secondary" />
+  <p-button [pTooltip]="item.label" [showDelay]="500" tooltipPosition="top"
+    [icon]="item.icon" [text]="true" [rounded]="true" severity="secondary" />
 </ng-template>

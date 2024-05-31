@@ -1,4 +1,4 @@
-<app-table [data]="items?.data" [columns]="columns"
-    [filters]="filters" [actions]="actions"
-    (changed)="getItems($event)" [totalItems]="items?.totalCount">
+<app-table [data]="items" [columns]="columns"
+    [filters]="filters" [actions]="actions" [globalActions]="tableActions"
+    (changed)="getItems()" [totalItems]="items?.length">
 </app-table>

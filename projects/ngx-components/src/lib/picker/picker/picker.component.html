@@ -1,27 +1,39 @@
-<div *ngIf="items?.length" class="mb-2 field" (click)="openPicker()">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let item of items; let i = index">
-      <div *ngIf="item" class="d-flex align-items-center">
-        <div class="flex-grow-1 lh-sm">
-          <p class="mb-0">{{ config.name(item) }}</p>
-          <small *ngIf="config.description" class="text-muted">{{ config.description(item) }}</small>
-        </div>
-        <p-button *ngIf="!disabled" (click)="remove(i); $event.stopPropagation()"
-          [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="px-2 py-1" />
-      </div>
-    </li>
-  </ul>
-  <label>{{ label }}</label>
-</div>
+@if (items?.length) {
+  <div class="mb-2 field" (click)="openPicker()">
+    <ul class="list-group list-group-flush">
+      @for (item of items; track item; let i = $index) {
+        <li class="list-group-item">
+          @if (item) {
+            <div class="d-flex align-items-center">
+              <div class="flex-grow-1 lh-sm">
+                <p class="mb-0">{{ config.name(item) }}</p>
+                @if (config.description) {
+                  <small class="text-muted">{{ config.description(item) }}</small>
+                }
+              </div>
+              @if (!disabled) {
+                <p-button (click)="remove(i); $event.stopPropagation()"
+                  [text]="true" [rounded]="true" icon="bi bi-x-lg" severity="secondary" styleClass="px-2 py-1" />
+              }
+            </div>
+          }
+        </li>
+      }
+    </ul>
+    <label>{{ label }}</label>
+  </div>
+}
 
-<button pButton type="button" class="p-button-outlined p-button-secondary w-100 border-dashed"
-  *ngIf="!disabled && !items?.length" [class.btn-error]="hasError()" (click)="openPicker()">
-  {{ config.editor.title }}
-</button>
+@if (!disabled && !items?.length) {
+  <button pButton type="button" class="p-button-outlined p-button-secondary w-100 border-dashed"
+    [class.btn-error]="hasError()" (click)="openPicker()">
+    {{ config.editor.title }}
+  </button>
+}
 
 <!-- // TODO: Include or avoid use of mat-error -->
 <!--<mat-error class="mb-2">-->
-  <ng-container *ngIf="hasError('required')">
-    {{ 'error.required' }}
-  </ng-container>
+@if (hasError('required')) {
+  {{ 'error.required' }}
+}
 <!--</mat-error>-->

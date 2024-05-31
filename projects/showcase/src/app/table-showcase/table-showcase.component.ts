@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { TableColumn } from 'dist/ngx-components/models/table-column';
-import { Fruit, tableData } from './table-data';
 import { Action } from 'dist/ngx-components/models/action';
-import { PagedRequest } from 'dist/ngx-components/models/paged-request';
-import { PagedList } from 'dist/ngx-components/models/paged-list';
-import { Filter } from 'dist/ngx-components/models/filter';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user-service';
+import { TableColumn } from 'ngx-components/src/models/table-column';
+import { Filter } from 'ngx-components/src/models/filter';
+import { DataType } from 'ngx-components/src/models/data-type';
+import { EditorService } from 'ngx-components';
+import { EditorContentComponent } from '../editor-showcase/editor-content/editor-content.component';
 
 @Component({
   selector: 'app-table-showcase',
@@ -13,49 +15,52 @@ import { Filter } from 'dist/ngx-components/models/filter';
 })
 export class TableShowcaseComponent implements OnInit {
 
-  items?: PagedList<Fruit>;
+  items?: User[];
+  filters: Filter[] = [];
 
-  // TODO: try different types
-  columns: TableColumn<Fruit>[] = [
+  constructor(
+    private userService: UserService,
+    private editorService: EditorService) { }
+
+  columns: TableColumn<User>[] = [
     { name: 'Id', value: x => x.id, sort: 'id' },
-    { name: 'Nome', value: x => x.name, sort: 'name' },
-    { name: 'Colore', value: x => x.color }
+    { name: 'Name', value: x => x.name, sort: 'name' },
+    { name: 'Birthdate', value: x => x.birthdate, type: DataType.Date, sort: 'birthdate' },
+    { name: 'Role', value: x => x.role, sort: 'role' },
+    { name: 'Gender', value: x => x.gender, sort: 'gender' },
+    { name: 'Disabled', value: x => x.disabled, type: DataType.Bool }
+  ];
+
+  tableActions: Action[] = [
+    { name: 'Create', icon: 'bi bi-plus-lg', action: () => this.openEditor() },
   ];
 
   actions: Action[] = [
-    { name: 'Crea', icon: 'bi bi-plus-lg', action: () => this.testLog() },
-    { name: 'Modifica', icon: 'bi bi-pencil', action: this.testLog },
-    { name: 'Test', icon: 'bi bi-circle', action: this.testLog.bind(this) },
-    { name: 'Altro', icon: 'bi bi-three-dots-vertical', items: [
-      { name: 'Crea', icon: 'bi bi-plus-lg' },
-      { name: 'Modifica', icon: 'bi bi-pencil' }
-    ] }
+    { name: 'Edit', icon: 'bi bi-pencil', action: x => this.openEditor(x) },
+    { name: 'Delete', icon: 'bi bi-circle', action: this.testLog.bind(this) },
+    { name: 'Other', icon: 'bi bi-three-dots-vertical', items: [
+      { name: 'Enable', icon: 'bi bi-plus-lg' },
+      { name: 'Disable', icon: 'bi bi-pencil' }
+    ]}
   ];
 
-  testLog(data?: any) {
-    console.log('good log!');
-    console.log(data);
+  ngOnInit() {
+    this.getItems();
   }
 
-  filters: Filter[] = [];
-
-  ngOnInit(): void {
-    // TODO: Try also with not-paged items
-    this.items = {
-      data: tableData,
-      currentPage: 1,
-      totalPages: 1,
-      totalCount: 3,
-      pageSize: 10
-    };
+  getItems() {
+    this.items = this.userService.getAll();
   }
 
-  test(fruit?: Fruit) {
-    console.log('test called');
-    console.log(fruit);
+  openEditor(user?: User) {
+    const config = { title: 'Create user' };
+    this.editorService.open(EditorContentComponent, config);
+    this.editorService.closed.subscribe(() => {
+      console.log('editor closed!!!'); // TODO: Add notificationService
+    });
   }
 
-  getItems(params?: PagedRequest) {
-    console.log('get items called');
+  testLog(){
+    console.log("sss");
   }
 }
