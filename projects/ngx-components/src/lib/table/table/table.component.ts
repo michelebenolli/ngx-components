@@ -10,7 +10,7 @@ import { DataType } from '../../../models/data-type';
 import { TableColumnDirective } from '../table-column.directive';
 
 @Component({
-  selector: 'app-table',
+  selector: 'g-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
