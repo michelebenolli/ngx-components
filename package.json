@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "mkdir ngx-components; cd ngx-components; git init; git remote add -f origin https://github.com/michelebenolli/ngx-components.git; git config core.sparseCheckout true; echo \"dist/ngx-components\" >> .git/info/sparse-checkout; git pull --depth=1 origin master; cd ..; npm i ./ngx-components/dist/ngx-components/"
   },
   "private": true,
   "dependencies": {
