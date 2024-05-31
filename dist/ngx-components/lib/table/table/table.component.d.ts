@@ -1,0 +1,30 @@
+import { EventEmitter, QueryList, TemplateRef } from '@angular/core';
+import { SortEvent } from 'primeng/api';
+import { FilterRequest } from '../../../models/filter-request';
+import { Filter } from '../../../models/filter';
+import { TableColumn } from '../../../models/table-column';
+import { Action } from '../../../models/action';
+import { TablePageEvent } from 'primeng/table';
+import { DataType } from '../../../models/data-type';
+import { TableColumnDirective } from '../table-column.directive';
+import * as i0 from "@angular/core";
+export declare class TableComponent<T> {
+    columns: TableColumn<T>[];
+    actions?: Action<T>[];
+    globalActions?: Action<T>[];
+    filters?: Filter[];
+    params: any;
+    totalItems?: number;
+    pageSize?: number;
+    set data(value: T[] | undefined);
+    changed: EventEmitter<any>;
+    templates?: QueryList<TableColumnDirective>;
+    items?: T[];
+    DataType: typeof DataType;
+    getTemplate(name: string): TemplateRef<any> | null;
+    sort(event: SortEvent): void;
+    pageChange(event: TablePageEvent): void;
+    filter(requests: FilterRequest[]): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent<any>, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent<any>, "app-table", never, { "columns": { "alias": "columns"; "required": false; }; "actions": { "alias": "actions"; "required": false; }; "globalActions": { "alias": "globalActions"; "required": false; }; "filters": { "alias": "filters"; "required": false; }; "params": { "alias": "params"; "required": false; }; "totalItems": { "alias": "totalItems"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "data": { "alias": "data"; "required": false; }; }, { "changed": "changed"; }, ["templates"], never, false, never>;
+}

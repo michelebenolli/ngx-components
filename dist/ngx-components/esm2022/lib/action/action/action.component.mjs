@@ -1,0 +1,37 @@
+import { Component, ContentChild, Input } from '@angular/core';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/common";
+import * as i2 from "primeng/menu";
+import * as i3 from "primeng/tooltip";
+import * as i4 from "primeng/button";
+export class ActionComponent {
+    ngOnInit() {
+        console.log('actions.loaded!');
+        this.items = this.actions?.map(x => this.getItem(x));
+    }
+    // TODO: Add permissions to action 
+    getItem(action) {
+        return {
+            label: action.name,
+            icon: action.icon,
+            // TODO Remove command: action.action?.(this.data),
+            items: action.items?.map(x => this.getItem(x)),
+            visible: action.show?.(this.data) !== false,
+            state: action
+        };
+    }
+    static { this.ɵfac = i0.ɵɵngDeclareFactory({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: ActionComponent, deps: [], target: i0.ɵɵFactoryTarget.Component }); }
+    static { this.ɵcmp = i0.ɵɵngDeclareComponent({ minVersion: "17.0.0", version: "17.2.0", type: ActionComponent, selector: "app-action", inputs: { actions: "actions", data: "data" }, queries: [{ propertyName: "template", first: true, predicate: ["template"], descendants: true }], ngImport: i0, template: "@for (item of items; track item) {\n  @if (item.visible) {\n    <span (click)=\"item.items?.length ? menu.toggle($event) : item.state?.['action']?.(data)\">\n      <ng-container *ngTemplateOutlet=\"template ?? icon; context: { $implicit: item }\" />\n      <p-menu #menu [model]=\"item.items\" [popup]=\"true\" appendTo=\"body\" />\n    </span>\n  }\n}\n\n<ng-template #icon let-item>\n  <p-button [pTooltip]=\"item.label\" [showDelay]=\"500\" tooltipPosition=\"top\"\n    [icon]=\"item.icon\" [text]=\"true\" [rounded]=\"true\" severity=\"secondary\" />\n</ng-template>", styles: [""], dependencies: [{ kind: "directive", type: i1.NgTemplateOutlet, selector: "[ngTemplateOutlet]", inputs: ["ngTemplateOutletContext", "ngTemplateOutlet", "ngTemplateOutletInjector"] }, { kind: "component", type: i2.Menu, selector: "p-menu", inputs: ["model", "popup", "style", "styleClass", "appendTo", "autoZIndex", "baseZIndex", "showTransitionOptions", "hideTransitionOptions", "ariaLabel", "ariaLabelledBy", "id", "tabindex"], outputs: ["onShow", "onHide", "onBlur", "onFocus"] }, { kind: "directive", type: i3.Tooltip, selector: "[pTooltip]", inputs: ["tooltipPosition", "tooltipEvent", "appendTo", "positionStyle", "tooltipStyleClass", "tooltipZIndex", "escape", "showDelay", "hideDelay", "life", "positionTop", "positionLeft", "autoHide", "fitContent", "hideOnEscape", "pTooltip", "tooltipDisabled", "tooltipOptions"] }, { kind: "component", type: i4.Button, selector: "p-button", inputs: ["type", "iconPos", "icon", "badge", "label", "disabled", "loading", "loadingIcon", "raised", "rounded", "text", "plain", "severity", "outlined", "link", "size", "style", "styleClass", "badgeClass", "ariaLabel"], outputs: ["onClick", "onFocus", "onBlur"] }] }); }
+}
+i0.ɵɵngDeclareClassMetadata({ minVersion: "12.0.0", version: "17.2.0", ngImport: i0, type: ActionComponent, decorators: [{
+            type: Component,
+            args: [{ selector: 'app-action', template: "@for (item of items; track item) {\n  @if (item.visible) {\n    <span (click)=\"item.items?.length ? menu.toggle($event) : item.state?.['action']?.(data)\">\n      <ng-container *ngTemplateOutlet=\"template ?? icon; context: { $implicit: item }\" />\n      <p-menu #menu [model]=\"item.items\" [popup]=\"true\" appendTo=\"body\" />\n    </span>\n  }\n}\n\n<ng-template #icon let-item>\n  <p-button [pTooltip]=\"item.label\" [showDelay]=\"500\" tooltipPosition=\"top\"\n    [icon]=\"item.icon\" [text]=\"true\" [rounded]=\"true\" severity=\"secondary\" />\n</ng-template>" }]
+        }], propDecorators: { actions: [{
+                type: Input
+            }], data: [{
+                type: Input
+            }], template: [{
+                type: ContentChild,
+                args: ['template']
+            }] } });
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWN0aW9uLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3Byb2plY3RzL25neC1jb21wb25lbnRzL3NyYy9saWIvYWN0aW9uL2FjdGlvbi9hY3Rpb24uY29tcG9uZW50LnRzIiwiLi4vLi4vLi4vLi4vLi4vLi4vcHJvamVjdHMvbmd4LWNvbXBvbmVudHMvc3JjL2xpYi9hY3Rpb24vYWN0aW9uL2FjdGlvbi5jb21wb25lbnQuaHRtbCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsU0FBUyxFQUFFLFlBQVksRUFBRSxLQUFLLEVBQXVCLE1BQU0sZUFBZSxDQUFDOzs7Ozs7QUFTcEYsTUFBTSxPQUFPLGVBQWU7SUFPMUIsUUFBUTtRQUNOLE9BQU8sQ0FBQyxHQUFHLENBQUMsaUJBQWlCLENBQUMsQ0FBQztRQUMvQixJQUFJLENBQUMsS0FBSyxHQUFHLElBQUksQ0FBQyxPQUFPLEVBQUUsR0FBRyxDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0lBQ3ZELENBQUM7SUFFRCxtQ0FBbUM7SUFDM0IsT0FBTyxDQUFDLE1BQWM7UUFDNUIsT0FBTztZQUNMLEtBQUssRUFBRSxNQUFNLENBQUMsSUFBSTtZQUNsQixJQUFJLEVBQUUsTUFBTSxDQUFDLElBQUk7WUFDakIsbURBQW1EO1lBQ25ELEtBQUssRUFBRSxNQUFNLENBQUMsS0FBSyxFQUFFLEdBQUcsQ0FBQyxDQUFDLENBQUMsRUFBRSxDQUFDLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDOUMsT0FBTyxFQUFFLE1BQU0sQ0FBQyxJQUFJLEVBQUUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLEtBQUssS0FBSztZQUMzQyxLQUFLLEVBQUUsTUFBTTtTQUNkLENBQUE7SUFDSCxDQUFDOzhHQXRCVSxlQUFlO2tHQUFmLGVBQWUsa01DVDVCLDRqQkFZYzs7MkZESEQsZUFBZTtrQkFMM0IsU0FBUzsrQkFDRSxZQUFZOzhCQU1iLE9BQU87c0JBQWYsS0FBSztnQkFDRyxJQUFJO3NCQUFaLEtBQUs7Z0JBQ29CLFFBQVE7c0JBQWpDLFlBQVk7dUJBQUMsVUFBVSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCwgQ29udGVudENoaWxkLCBJbnB1dCwgT25Jbml0LCBUZW1wbGF0ZVJlZiB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgTWVudUl0ZW0gfSBmcm9tICdwcmltZW5nL2FwaSc7XG5pbXBvcnQgeyBBY3Rpb24gfSBmcm9tICcuLi8uLi8uLi9tb2RlbHMvYWN0aW9uJztcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yOiAnYXBwLWFjdGlvbicsXG4gIHRlbXBsYXRlVXJsOiAnLi9hY3Rpb24uY29tcG9uZW50Lmh0bWwnLFxuICBzdHlsZVVybHM6IFsnLi9hY3Rpb24uY29tcG9uZW50LnNjc3MnXVxufSlcbmV4cG9ydCBjbGFzcyBBY3Rpb25Db21wb25lbnQgaW1wbGVtZW50cyBPbkluaXQge1xuICBcbiAgQElucHV0KCkgYWN0aW9ucz86IEFjdGlvbltdO1xuICBASW5wdXQoKSBkYXRhPzogYW55O1xuICBAQ29udGVudENoaWxkKCd0ZW1wbGF0ZScpIHRlbXBsYXRlPzogVGVtcGxhdGVSZWY8YW55PjtcbiAgaXRlbXM/OiBNZW51SXRlbVtdO1xuXG4gIG5nT25Jbml0KCkge1xuICAgIGNvbnNvbGUubG9nKCdhY3Rpb25zLmxvYWRlZCEnKTtcbiAgICB0aGlzLml0ZW1zID0gdGhpcy5hY3Rpb25zPy5tYXAoeCA9PiB0aGlzLmdldEl0ZW0oeCkpO1xuICB9XG5cbiAgLy8gVE9ETzogQWRkIHBlcm1pc3Npb25zIHRvIGFjdGlvbiBcbiAgcHJpdmF0ZSBnZXRJdGVtKGFjdGlvbjogQWN0aW9uKTogTWVudUl0ZW0ge1xuICAgIHJldHVybiB7XG4gICAgICBsYWJlbDogYWN0aW9uLm5hbWUsXG4gICAgICBpY29uOiBhY3Rpb24uaWNvbixcbiAgICAgIC8vIFRPRE8gUmVtb3ZlIGNvbW1hbmQ6IGFjdGlvbi5hY3Rpb24/Lih0aGlzLmRhdGEpLFxuICAgICAgaXRlbXM6IGFjdGlvbi5pdGVtcz8ubWFwKHggPT4gdGhpcy5nZXRJdGVtKHgpKSxcbiAgICAgIHZpc2libGU6IGFjdGlvbi5zaG93Py4odGhpcy5kYXRhKSAhPT0gZmFsc2UsXG4gICAgICBzdGF0ZTogYWN0aW9uXG4gICAgfVxuICB9XG59XG4iLCJAZm9yIChpdGVtIG9mIGl0ZW1zOyB0cmFjayBpdGVtKSB7XG4gIEBpZiAoaXRlbS52aXNpYmxlKSB7XG4gICAgPHNwYW4gKGNsaWNrKT1cIml0ZW0uaXRlbXM/Lmxlbmd0aCA/IG1lbnUudG9nZ2xlKCRldmVudCkgOiBpdGVtLnN0YXRlPy5bJ2FjdGlvbiddPy4oZGF0YSlcIj5cbiAgICAgIDxuZy1jb250YWluZXIgKm5nVGVtcGxhdGVPdXRsZXQ9XCJ0ZW1wbGF0ZSA/PyBpY29uOyBjb250ZXh0OiB7ICRpbXBsaWNpdDogaXRlbSB9XCIgLz5cbiAgICAgIDxwLW1lbnUgI21lbnUgW21vZGVsXT1cIml0ZW0uaXRlbXNcIiBbcG9wdXBdPVwidHJ1ZVwiIGFwcGVuZFRvPVwiYm9keVwiIC8+XG4gICAgPC9zcGFuPlxuICB9XG59XG5cbjxuZy10ZW1wbGF0ZSAjaWNvbiBsZXQtaXRlbT5cbiAgPHAtYnV0dG9uIFtwVG9vbHRpcF09XCJpdGVtLmxhYmVsXCIgW3Nob3dEZWxheV09XCI1MDBcIiB0b29sdGlwUG9zaXRpb249XCJ0b3BcIlxuICAgIFtpY29uXT1cIml0ZW0uaWNvblwiIFt0ZXh0XT1cInRydWVcIiBbcm91bmRlZF09XCJ0cnVlXCIgc2V2ZXJpdHk9XCJzZWNvbmRhcnlcIiAvPlxuPC9uZy10ZW1wbGF0ZT4iXX0=
