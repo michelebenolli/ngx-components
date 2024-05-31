@@ -22,7 +22,7 @@ export class TableShowcaseComponent implements OnInit {
     private userService: UserService,
     private editorService: EditorService) { }
 
-  columns: TableColumn<User>[] = [
+  columns: TableColumn[] = [
     { name: 'Id', value: x => x.id, sort: 'id' },
     { name: 'Name', value: x => x.name, sort: 'name' },
     { name: 'Birthdate', value: x => x.birthdate, type: DataType.Date, sort: 'birthdate' },

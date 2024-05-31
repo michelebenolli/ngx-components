@@ -1,30 +1,35 @@
-import { EventEmitter, QueryList, TemplateRef } from '@angular/core';
+import { EventEmitter, OnInit, QueryList, TemplateRef } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { FilterRequest } from '../../../models/filter-request';
 import { Filter } from '../../../models/filter';
 import { TableColumn } from '../../../models/table-column';
 import { Action } from '../../../models/action';
-import { TablePageEvent } from 'primeng/table';
 import { DataType } from '../../../models/data-type';
 import { TableColumnDirective } from '../table-column.directive';
 import * as i0 from "@angular/core";
-export declare class TableComponent<T> {
-    columns: TableColumn<T>[];
-    actions?: Action<T>[];
-    globalActions?: Action<T>[];
-    filters?: Filter[];
+export declare class TableComponent implements OnInit {
+    columns: TableColumn[];
     params: any;
+    actions?: Action[];
+    tableActions?: Action[];
+    bulkActions?: Action[];
+    filters?: Filter[];
     totalItems?: number;
     pageSize?: number;
-    set data(value: T[] | undefined);
+    set data(value: any[] | undefined);
     changed: EventEmitter<any>;
+    onColReordered: EventEmitter<any>;
     templates?: QueryList<TableColumnDirective>;
-    items?: T[];
+    items?: any[];
+    selected?: any[];
     DataType: typeof DataType;
-    getTemplate(name: string): TemplateRef<any> | null;
+    ngOnInit(): void;
+    clearSelection(): void;
     sort(event: SortEvent): void;
-    pageChange(event: TablePageEvent): void;
+    pageChange(event: any): void;
     filter(requests: FilterRequest[]): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent<any>, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent<any>, "g-table", never, { "columns": { "alias": "columns"; "required": false; }; "actions": { "alias": "actions"; "required": false; }; "globalActions": { "alias": "globalActions"; "required": false; }; "filters": { "alias": "filters"; "required": false; }; "params": { "alias": "params"; "required": false; }; "totalItems": { "alias": "totalItems"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "data": { "alias": "data"; "required": false; }; }, { "changed": "changed"; }, ["templates"], never, false, never>;
+    getTemplate(name: string): TemplateRef<any> | null;
+    onColReorder(event: any): void;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TableComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TableComponent, "g-table", never, { "columns": { "alias": "columns"; "required": false; }; "params": { "alias": "params"; "required": false; }; "actions": { "alias": "actions"; "required": false; }; "tableActions": { "alias": "tableActions"; "required": false; }; "bulkActions": { "alias": "bulkActions"; "required": false; }; "filters": { "alias": "filters"; "required": false; }; "totalItems": { "alias": "totalItems"; "required": false; }; "pageSize": { "alias": "pageSize"; "required": false; }; "data": { "alias": "data"; "required": false; }; }, { "changed": "changed"; "onColReordered": "onColReordered"; }, ["templates"], never, false, never>;
 }

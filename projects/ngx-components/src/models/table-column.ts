@@ -1,10 +1,10 @@
 import { DataType } from './data-type';
 
-export interface TableColumn<T> {
+export interface TableColumn {
   name: string;
-  value: (x: T) => any;
+  value: (x: any) => any;
   type?: DataType;
-  sort?: string; // TODO: List of strings...
-  // TODO: Remove position?: 'right' | 'left';
+  sort?: string;
+  position?: 'right' | 'left';
   template?: string;
 }

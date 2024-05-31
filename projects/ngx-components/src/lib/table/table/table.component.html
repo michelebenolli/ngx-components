@@ -1,90 +1,91 @@
-<!-- // TODO: Show paginator only when paging is active... -->
-<!-- // TODO: Check the condition of [totalRecords]-->
-<p-table [value]="items ?? []" [lazy]="true"
+<!-- Bulk actions -->
+<div *ngIf="bulkActions?.length && selected?.length" class="d-flex justify-content-between p-3 mb-3 rounded bg-light">
+  <p-button [label]="'Annulla selezione'" (click)="clearSelection()" styleClass="p-button-outlined p-button-secondary" />
+  <app-action [data]="selected" [actions]="bulkActions" class="d-flex gap-2">
+    <ng-template #template let-action>
+      <p-button [label]="action.label" />
+    </ng-template>
+  </app-action>
+</div>
+
+<!-- Table filters and actions -->
+<div *ngIf="filters?.length || tableActions?.length" class="d-flex gap-3 justify-content-between align-items-center pb-3 overflow-auto">
+  <app-filter [filters]="filters" (onFilter)="filter($event)" class="flex-grow-1" />
+  <app-action *ngIf="tableActions?.length" [actions]="tableActions" class="d-flex gap-2">
+    <ng-template #template let-action>
+      <p-button [label]="action.label" />
+    </ng-template>
+  </app-action>
+</div>
+
+<!-- Table -->
+<p-table [resizableColumns]="true" [value]="items ?? []" responsiveLayout="scroll" (onSort)="sort($event)"
+  [customSort]="true" [lazy]="true" [(selection)]="selected" [columns]="columns"
+  [reorderableColumns]="true" (onColReorder)="onColReorder($event)"
   [paginator]="true" [alwaysShowPaginator]="false" [totalRecords]="totalItems ?? items?.length ?? 0" [rows]="pageSize"
   [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} di {totalRecords}"
-  [rowsPerPageOptions]="[5, 10, 25, 100]" (onSort)="sort($event)" (onPage)="pageChange($event)">
-
-  <!-- Table filters and actions -->
-  @if (filters?.length || globalActions?.length) {
-    <ng-template pTemplate="caption">
-      <div class="d-flex align-items-center overflow-auto p-3">
-        <app-filter [filters]="filters" (onFilter)="filter($event)" class="flex-grow-1" />
-        @if (globalActions?.length) {
-          <app-action [actions]="globalActions" class="ms-2">
-            <ng-template #template let-action>
-              <p-button [label]="action.label" styleClass="p-button-primary ms-2" />
-            </ng-template>
-          </app-action>
-        }
-      </div>
-    </ng-template>
-  }
-
+  [rowsPerPageOptions]="[5, 10, 25, 100]" (onPage)="pageChange($event)">
+  
   <!-- Table header -->
   <ng-template pTemplate="header">
     <tr>
-      @for (column of columns; track column) {
-        <th [pSortableColumn]="column.sort">
-          {{column.name}} 
-          @if (column.sort) {
-            <p-sortIcon [field]="column.sort" />
-            }
+      <th style="width:0" *ngIf="bulkActions?.length">
+        <p-tableHeaderCheckbox />
       </th>
-    }
-    @if (actions) {
-      <th class="text-end"></th>
-    }
-  </tr>
-</ng-template>
+      <th *ngFor="let column of columns" [pSortableColumn]="column.sort ?? ''" pReorderableColumn>
+        {{column.name}} <p-sortIcon *ngIf="column.sort" [field]="column.sort" />
+      </th>
+      <th *ngIf="actions" class="text-end" style="width:0"></th>
+    </tr>
+  </ng-template>
 
-<!-- Table body -->
-<ng-template pTemplate="body" let-item>
-  <tr>
-    @for (column of columns; track column) {
-      <td>
-        <ng-container [ngTemplateOutlet]="column.template ? getTemplate(column.template) : tableTemplate"
+  <!-- Table body -->
+  <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+    <tr [pSelectableRow]="item" [pSelectableRowIndex]="rowIndex">
+      <td *ngIf="bulkActions?.length">
+        <p-tableCheckbox [value]="item" />
+      </td>
+      <td *ngFor="let column of columns;">
+        <ng-container [ngTemplateOutlet]="column.template ? getTemplate(column.template) : template"
           [ngTemplateOutletContext]="{ $implicit: item, column }" />
       </td>
-    }
-    @if (actions) {
-      <td class="text-end">
-        <app-action [actions]="actions" [data]="item" />
+      <td class="text-end" *ngIf="actions">
+        <app-action [data]="item" [actions]="actions" />
       </td>
-    }
-  </tr>
-</ng-template>
+    </tr>
+  </ng-template>
 
-<ng-template pTemplate="emptymessage">
-  <tr>
-    <td [attr.colspan]="100">
-      {{ 'Nessun elemento da visualizzare' }}
-    </td>
-  </tr>
-</ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td class="mat-cell text-center" [attr.colspan]="100">
+        {{ 'Nessun elemento da visualizzare' }} <!-- // TODO: Translate -->
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="paginatorleft"></ng-template>
 </p-table>
 
 <!-- Table data template -->
-<ng-template #tableTemplate let-item let-column="column">
+<ng-template #template let-item let-column="column">
   @switch (column.type) {
-        @case (DataType.Date) {
-            {{ column.value(item) | date: 'dd/MM/yyyy' }}
-        }
-        @case (DataType.DateTime) {
-            {{ column.value(item) | date: 'dd/MM/yyyy, hh:mm' }}
-        }
-        @case (DataType.Amount) {
-            {{ column.value(item) | currency: 'EUR': 'symbol' : undefined: 'it-IT' }}
-        }
-        @case (DataType.Bool) {
-            {{ column.value(item) ? 'Si': 'No' }}
-        <!-- // TODO: Translate -->
-        }
-        @case (DataType.Color) {
-            <i class="bi bi-circle-fill" [style.color]="column.value(item)"></i>
-        }
-        @default {
-            {{ column.value(item) }}
-        }
+    @case (DataType.Date) {
+        {{ column.value(item) | date: 'dd/MM/yyyy' }}
     }
-  </ng-template>
+    @case (DataType.DateTime) {
+        {{ column.value(item) | date: 'dd/MM/yyyy, hh:mm' }}
+    }
+    @case (DataType.Amount) {
+        {{ column.value(item) | currency: 'EUR': 'symbol' : undefined: 'it-IT' }}
+    }
+    @case (DataType.Bool) {
+        {{ column.value(item) ? 'Si': 'No' }}
+    <!-- // TODO: Translate -->
+    }
+    @case (DataType.Color) {
+        <i class="bi bi-circle-fill" [style.color]="column.value(item)"></i>
+    }
+    @default {
+        {{ column.value(item) }}
+    }
+  }
+</ng-template>

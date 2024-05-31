@@ -1,8 +1,9 @@
 import { DataType } from './data-type';
-export interface TableColumn<T> {
+export interface TableColumn {
     name: string;
-    value: (x: T) => any;
+    value: (x: any) => any;
     type?: DataType;
     sort?: string;
+    position?: 'right' | 'left';
     template?: string;
 }
