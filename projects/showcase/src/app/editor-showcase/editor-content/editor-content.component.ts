@@ -19,7 +19,7 @@ export class EditorContentComponent implements OnInit {
   constructor(
     @Inject(EDITOR) public editor: EditorComponent,
     private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService) {}
     // TODO Export service from lib private notification: NotificationService) { }
 
   // TODO: Use it to create a sample model
@@ -41,7 +41,8 @@ export class EditorContentComponent implements OnInit {
   initForm() {
     this.form = this.fb.group({
       id: this.data?.id,
-      name: [this.data?.name, Validators.required],
+      firstName: [this.data?.firstName, Validators.required],
+      lastName: [this.data?.lastName, Validators.required],
       birthdate: this.data?.birthdate,
       role: [this.data?.role, Validators.required],
       gender: this.data?.gender,
@@ -54,14 +55,16 @@ export class EditorContentComponent implements OnInit {
     if (!this.form.valid) return;
 
     if (this.data?.id) {
-      this.userService.update(this.form.value);
-      //this.notification.success('message.updated');
-      this.editor.close();
+      this.userService.update(this.form.get('id')?.value, this.form.value).subscribe(() => {
+        //this.notification.success('message.updated'); // TODO
+        this.editor.close();
+      });
     }
     else {
-      this.userService.create(this.form.value);
-      //this.notification.success('message.created');
-      this.editor.close();
+      this.userService.create(this.form.value).subscribe(id => {
+        //this.notification.success('message.created');
+        this.editor.close(id);
+      });
     }
   }
 }

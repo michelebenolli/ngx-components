@@ -5,8 +5,7 @@ export declare enum DataType {
     Image = 3,
     File = 4,
     Bool = 5,
-    Color = 6,
-    DateTime = 7,
-    Check = 8,
-    Users = 9
+    DateTime = 6,
+    Check = 7,
+    Users = 8
 }

@@ -21,8 +21,8 @@ export abstract class RepositoryService<T = any, TId extends number | string = n
     return this.http.post<T[]>(this.baseUrl + 'getAll', request ?? {});
   }
 
-  getById(id: TId): Observable<T> {
-    return this.http.get<T>(this.baseUrl + id);
+  getById(id: TId, params?: any): Observable<T> {
+    return this.http.get<T>(this.baseUrl + id, { params });
   }
 
   create(entity: T): Observable<TId> {

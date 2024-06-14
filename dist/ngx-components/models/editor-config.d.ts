@@ -1,5 +1,5 @@
 export interface EditorConfig {
-    title: string;
+    title?: string;
     subtitle?: string;
     size?: 'small' | 'medium' | 'large';
     data?: any;

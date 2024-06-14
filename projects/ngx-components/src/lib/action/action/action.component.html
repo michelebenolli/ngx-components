@@ -1,6 +1,6 @@
 @for (item of items; track item) {
   @if (item.visible) {
-    <span (click)="item.items?.length ? menu.toggle($event) : item.state?.['action']?.(data)">
+    <span (click)="item.items?.length ? menu.toggle($event) : openAction(item)">
       <ng-container *ngTemplateOutlet="template ?? icon; context: { $implicit: item }" />
       <p-menu #menu [model]="item.items" [popup]="true" appendTo="body" />
     </span>
@@ -11,3 +11,14 @@
   <p-button [pTooltip]="item.label" [showDelay]="500" tooltipPosition="top"
     [icon]="item.icon" [text]="true" [rounded]="true" severity="secondary" />
 </ng-template>
+
+<p-confirmDialog #dialog [key]="key" [closable]="false" [style]="{ 'min-width': '25vw'}">
+  <ng-template pTemplate="message" let-message>
+    {{ message.message }}
+  </ng-template>
+  <ng-template pTemplate="footer" let-message>
+    {{ message | json }}
+    <p-button [label]="message?.rejectLabel ?? 'Annulla'" [text]="true" (click)="dialog.reject()" />
+    <p-button [label]="message?.acceptLabel ?? 'Conferma'" (click)="dialog.accept()" />
+  </ng-template>
+</p-confirmDialog>

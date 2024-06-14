@@ -11,7 +11,7 @@ export declare abstract class RepositoryService<T = any, TId extends number | st
     constructor(http: HttpClient, baseUrl: string);
     search(request?: PagedRequest): Observable<PagedList<T>>;
     getAll(request?: BaseRequest): Observable<T[]>;
-    getById(id: TId): Observable<T>;
+    getById(id: TId, params?: any): Observable<T>;
     create(entity: T): Observable<TId>;
     createMany(entities: T[]): Observable<void>;
     update(id: TId, entity: T): Observable<void>;

@@ -5,8 +5,8 @@ import { hasValue } from '../../../utils/utils';
 import { Filter } from '../../../models/filter';
 import { TableColumn } from '../../../models/table-column';
 import { Action } from '../../../models/action';
-import { DataType } from '../../../models/data-type';
-import { TableColumnDirective } from '../table-column.directive';
+import { ColumnDirective } from '../column.directive';
+import { ColumnTemplates } from '../column-templates.service';
 
 @Component({
   selector: 'g-table',
@@ -27,10 +27,11 @@ export class TableComponent implements OnInit {
 
   @Output() changed = new EventEmitter();
   @Output() onColReordered = new EventEmitter<any>();
-  @ContentChildren(TableColumnDirective) templates?: QueryList<TableColumnDirective>;
+  @ContentChildren(ColumnDirective) templates?: QueryList<ColumnDirective>;
   items?: any[];
   selected?: any[];
-  DataType = DataType;
+
+  constructor(private tableTemplates: ColumnTemplates) { }
 
   ngOnInit() {
     this.params.filters = this.filters?.map(x => x.request)?.filter(x => hasValue(x));
@@ -58,8 +59,11 @@ export class TableComponent implements OnInit {
     this.changed.emit(this.params);
   }
 
+  // TODO: Called too many times... replace it with a array of templates
+  // To populate when the component loads...
   getTemplate(name: string): TemplateRef<any> | null {
-    return this.templates?.find(x => x.id === name)?.template ?? null;
+    return this.templates?.find(x => x.id === name)?.template ??
+      this.tableTemplates.directives.find(x => x.id === name)?.template ?? null;
   }
 
   onColReorder(event: any) {

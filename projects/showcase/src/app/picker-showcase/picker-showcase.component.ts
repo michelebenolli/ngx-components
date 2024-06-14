@@ -1,27 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PickerConfig } from 'dist/ngx-components/models/picker-config';
-
-export interface PickerData {
-  id: number;
-  name: string;
-}
+import { User } from '../../models/user';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-picker-showcase',
   templateUrl: './picker-showcase.component.html',
   styleUrls: ['./picker-showcase.component.scss']
 })
-export class PickerShowcaseComponent {
+export class PickerShowcaseComponent implements OnInit {
 
-  pickerConfig: PickerConfig<PickerData> = {
-    name: x => x.name,
+  items?: User[];
+  pickerConfig: PickerConfig<User> = { 
+    name: x => x.firstName + ' ' + x.lastName,
     multiple: false,
     editor: { title: 'Seleziona un valore' }
   };
 
-  pickerData: PickerData[] = [
-    { id: 1, name: 'Primo' },
-    { id: 2, name: 'Secondo' },
-    { id: 3, name: 'Terzo' }
-  ];
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+    this.userService.search({ pageSize: 3 }).subscribe(x => this.items = x.data);
+  }
 }

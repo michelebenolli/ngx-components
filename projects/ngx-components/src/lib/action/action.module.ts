@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActionComponent } from './action/action.component';
 import { MenuModule } from 'primeng/menu';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -11,10 +13,14 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     CommonModule,
     MenuModule,
-    ButtonModule
+    ButtonModule,
+    ConfirmDialogModule
   ],
   exports: [
     ActionComponent
+  ],
+  providers: [
+    ConfirmationService
   ]
 })
 export class ActionModule { }

@@ -1,21 +1,21 @@
 <!-- Bulk actions -->
 <div *ngIf="bulkActions?.length && selected?.length" class="d-flex justify-content-between p-3 mb-3 rounded bg-light">
   <p-button [label]="'Annulla selezione'" (click)="clearSelection()" styleClass="p-button-outlined p-button-secondary" />
-  <app-action [data]="selected" [actions]="bulkActions" class="d-flex gap-2">
+  <g-action [data]="selected" [actions]="bulkActions" class="d-flex gap-2">
     <ng-template #template let-action>
       <p-button [label]="action.label" />
     </ng-template>
-  </app-action>
+  </g-action>
 </div>
 
 <!-- Table filters and actions -->
 <div *ngIf="filters?.length || tableActions?.length" class="d-flex gap-3 justify-content-between align-items-center pb-3 overflow-auto">
   <app-filter [filters]="filters" (onFilter)="filter($event)" class="flex-grow-1" />
-  <app-action *ngIf="tableActions?.length" [actions]="tableActions" class="d-flex gap-2">
+  <g-action *ngIf="tableActions?.length" [actions]="tableActions" class="d-flex gap-2">
     <ng-template #template let-action>
       <p-button [label]="action.label" />
     </ng-template>
-  </app-action>
+  </g-action>
 </div>
 
 <!-- Table -->
@@ -50,7 +50,7 @@
           [ngTemplateOutletContext]="{ $implicit: item, column }" />
       </td>
       <td class="text-end" *ngIf="actions">
-        <app-action [data]="item" [actions]="actions" />
+        <g-action [data]="item" [actions]="actions" />
       </td>
     </tr>
   </ng-template>
@@ -67,7 +67,9 @@
 
 <!-- Table data template -->
 <ng-template #template let-item let-column="column">
-  @switch (column.type) {
+  {{ column.value(item) }}
+
+  <!--@switch (column.type) {
     @case (DataType.Date) {
         {{ column.value(item) | date: 'dd/MM/yyyy' }}
     }
@@ -79,13 +81,9 @@
     }
     @case (DataType.Bool) {
         {{ column.value(item) ? 'Si': 'No' }}
-    <!-- // TODO: Translate -->
-    }
-    @case (DataType.Color) {
-        <i class="bi bi-circle-fill" [style.color]="column.value(item)"></i>
     }
     @default {
         {{ column.value(item) }}
     }
-  }
+  }-->
 </ng-template>

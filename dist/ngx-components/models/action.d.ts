@@ -1,7 +1,10 @@
-export interface Action<T = any> {
-    name: string;
+import { Confirmation } from "primeng/api";
+export interface Action {
+    name?: string;
     icon?: string;
     action?: (x?: any) => any;
-    show?: (x?: T) => boolean;
-    items?: Action<T>[];
+    confirm?: Confirmation;
+    show?: (x?: any) => boolean;
+    permissions?: string | string[];
+    items?: Action[];
 }

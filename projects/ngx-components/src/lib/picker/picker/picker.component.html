@@ -1,4 +1,4 @@
-@if (items?.length) {
+@if (items.length) {
   <div class="mb-2 field" (click)="openPicker()">
     <ul class="list-group list-group-flush">
       @for (item of items; track item; let i = $index) {
@@ -24,7 +24,7 @@
   </div>
 }
 
-@if (!disabled && !items?.length) {
+@if (!disabled && !items.length) {
   <button pButton type="button" class="p-button-outlined p-button-secondary w-100 border-dashed"
     [class.btn-error]="hasError()" (click)="openPicker()">
     {{ config.editor.title }}

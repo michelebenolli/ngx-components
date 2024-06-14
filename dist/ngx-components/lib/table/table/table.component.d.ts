@@ -4,10 +4,11 @@ import { FilterRequest } from '../../../models/filter-request';
 import { Filter } from '../../../models/filter';
 import { TableColumn } from '../../../models/table-column';
 import { Action } from '../../../models/action';
-import { DataType } from '../../../models/data-type';
-import { TableColumnDirective } from '../table-column.directive';
+import { ColumnDirective } from '../column.directive';
+import { ColumnTemplates } from '../column-templates.service';
 import * as i0 from "@angular/core";
 export declare class TableComponent implements OnInit {
+    private tableTemplates;
     columns: TableColumn[];
     params: any;
     actions?: Action[];
@@ -19,10 +20,10 @@ export declare class TableComponent implements OnInit {
     set data(value: any[] | undefined);
     changed: EventEmitter<any>;
     onColReordered: EventEmitter<any>;
-    templates?: QueryList<TableColumnDirective>;
+    templates?: QueryList<ColumnDirective>;
     items?: any[];
     selected?: any[];
-    DataType: typeof DataType;
+    constructor(tableTemplates: ColumnTemplates);
     ngOnInit(): void;
     clearSelection(): void;
     sort(event: SortEvent): void;

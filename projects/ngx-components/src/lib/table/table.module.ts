@@ -5,6 +5,8 @@ import { FilterModule } from '../filter'; // TODO: Or filter/module?
 import { TableComponent } from './table/table.component';
 import { TableModule as PrimengTableModule } from 'primeng/table';
 import { ActionModule } from '../action/action.module';
+import { ColumnTemplatesDirective } from './column-templates.directive';
+import { ColumnDirective } from './column.directive';
 
 @NgModule({
   declarations: [
@@ -16,10 +18,14 @@ import { ActionModule } from '../action/action.module';
     ButtonModule,
     FilterModule,
     ActionModule,
-    PrimengTableModule
+    PrimengTableModule,
+    ColumnDirective,
+    ColumnTemplatesDirective
   ],
   exports: [
-    TableComponent
+    TableComponent,
+    ColumnDirective,
+    ColumnTemplatesDirective
   ]
 })
 export class TableModule { }

@@ -1,4 +1,8 @@
-<g-table [data]="items" [columns]="columns"
+<g-table [data]="items?.data" [columns]="columns"
     [filters]="filters" [actions]="actions" [tableActions]="tableActions"
-    (changed)="getItems()" [totalItems]="items?.length">
+    (changed)="getItems($event)" [totalItems]="items?.totalCount">
+
+    <ng-template g-column="birthDate" let-item let-column="column">
+        {{ column.value(item) | date: 'yyyy-MM-dd' }}
+    </ng-template>
 </g-table>

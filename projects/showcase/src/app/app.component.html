@@ -32,3 +32,11 @@
   </div>
 </div>
 
+<g-column-templates>
+  <ng-template g-column="birthDate" let-item let-column="column">
+    {{ column.value(item) | date }}
+  </ng-template>
+  <ng-template g-column="bool" let-item let-column="column">
+    {{ column.value(item) ? 'Si' : 'No' }}
+  </ng-template>
+</g-column-templates>
